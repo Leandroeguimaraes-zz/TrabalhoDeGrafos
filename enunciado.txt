@@ -1,3 +1,4 @@
+
 1º Gerador de instancias: Dado um inteiro n e uma probabilidade p (0 <= p <= 1).
 Gera grafos com n vertices, onde cada possivel aresta teve probabilidade p de 
 ser inserida no grafo.
