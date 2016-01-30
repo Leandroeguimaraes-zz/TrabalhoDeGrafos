@@ -9,13 +9,6 @@ package trabalhodegrafos;
  *
  * @author Leandro
  */
-public class TrabalhoDeGrafos {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        System.out.println("iniciando");
-    }
+public class Vertices {
     
 }
