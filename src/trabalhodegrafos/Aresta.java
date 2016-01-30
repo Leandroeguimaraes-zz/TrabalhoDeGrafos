@@ -11,8 +11,8 @@ package trabalhodegrafos;
  */
 public class Aresta {
 
-    Vertice verticeA, verticeB;
-    int peso;
+    private Vertice verticeA, verticeB;
+    private int peso;
 
     public Aresta(Vertice verticeA, Vertice verticeB, int peso) {
         this.verticeA = verticeA;
