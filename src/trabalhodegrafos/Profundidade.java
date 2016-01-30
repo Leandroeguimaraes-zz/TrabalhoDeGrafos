@@ -29,20 +29,20 @@ public class Profundidade {
         }   
     }
     
-    public Vertice buscaMenorNumero(Vertice v){
-        int aux=v.getVizinhos().get(0);
-        Vertice vMenor = null;
-        
-        for (int i = 1; i < v.getVizinhos().size(); i++) 
-            if(v.getVizinhos().get(i)<aux){
-                aux=v.getVizinhos().get(i);
-                vMenor=v;
-            }
-                
-        return vMenor;
-        
-        
-    }
+//    public Vertice buscaMenorNumero(Vertice v){
+//        int aux=v.getVizinhos().get(0);
+//        Vertice vMenor = null;
+//        
+//        for (int i = 1; i < v.getVizinhos().size(); i++) 
+//            if(v.getVizinhos().get(i)<aux){
+//                aux=v.getVizinhos().get(i);
+//                vMenor=v;
+//            }
+//                
+//        return vMenor;
+//        
+//        
+//    }
     public void constroiArvore(int v){
         
         

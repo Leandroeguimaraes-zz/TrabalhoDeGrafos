@@ -36,8 +36,8 @@ public class Grafo {
                      arestas.add(new Aresta(vertices.get(i),vertices.get(j)));
                      
                       // adicionando agora pelo numero e não o vertice em si
-                     vertices.get(i).addVizinho(vertices.get(j).getNumero());  
-                     vertices.get(j).addVizinho(vertices.get(i).getNumero());
+                     vertices.get(i).addVizinho(vertices.get(j));  
+                     vertices.get(j).addVizinho(vertices.get(i));
                 }
                 
             }

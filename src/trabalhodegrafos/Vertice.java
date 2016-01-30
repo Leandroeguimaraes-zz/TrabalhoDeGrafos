@@ -15,7 +15,7 @@ import java.util.List;
 public class Vertice {
     private String letra = null;
     private int numero = 0;
-    private List<Integer> vizinhos = new ArrayList<>();
+    private List<Vertice> vizinhos = new ArrayList<>();
     private int pe=0;
     private int ps=0;
     
@@ -25,13 +25,13 @@ public class Vertice {
     public Vertice(int numero){
         this.numero=numero;
     }
-    public void addVizinho(int v){
+    public void addVizinho(Vertice v){
         vizinhos.add(v);
     }
     
     public void imprimeVizinhos(){
         for (int i = 0; i < vizinhos.size(); i++) {
-            System.out.println(this.numero+ "-> " + vizinhos.get(i));
+            System.out.println(this.numero+ "-> " + vizinhos.get(i).getNumero());
         }
         
     }
@@ -52,11 +52,11 @@ public class Vertice {
         this.numero = numero;
     }
 
-    public List<Integer> getVizinhos() {
+    public List<Vertice> getVizinhos() {
         return vizinhos;
     }
 
-    public void setVizinhos(List<Integer> vizinhos) {
+    public void setVizinhos(List<Vertice> vizinhos) {
         this.vizinhos = vizinhos;
     }
     
