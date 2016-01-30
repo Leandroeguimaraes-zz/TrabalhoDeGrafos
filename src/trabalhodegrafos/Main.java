@@ -21,7 +21,7 @@ public class Main {
         g.imprimeGrafo();
         System.out.println("  ---  ");
         System.out.println("Vizinhos de um Vertice");
-        for (Vertice v: g.vertices) {
+        for (Vertice v: g.getVertices()) {
             v.imprimeVizinhos();
         }
             

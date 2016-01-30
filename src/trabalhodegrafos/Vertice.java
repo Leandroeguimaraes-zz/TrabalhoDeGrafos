@@ -16,6 +16,8 @@ public class Vertice {
     private String letra = null;
     private int numero = 0;
     private List<Integer> vizinhos = new ArrayList<>();
+    private int pe=0;
+    private int ps=0;
     
     public Vertice(String letra){
         this.letra=letra;

@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class Grafo {
     
-    List<Vertice> vertices= new ArrayList<>();
-    List<Aresta> arestas= new ArrayList<>();
+    private List<Vertice> vertices= new ArrayList<>();
+    private List<Aresta> arestas= new ArrayList<>();
     
-    int numVertices=0;
+    private int numVertices=0;
     
     public Grafo(int numVertices){
         this.numVertices=numVertices;     
@@ -65,6 +65,22 @@ public class Grafo {
         for (Aresta aresta :arestas) {
             System.out.println(aresta.getVerticeA().getNumero() + " " + aresta.getVerticeB().getNumero());
         }
+    }
+
+    public List<Vertice> getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(List<Vertice> vertices) {
+        this.vertices = vertices;
+    }
+
+    public List<Aresta> getArestas() {
+        return arestas;
+    }
+
+    public void setArestas(List<Aresta> arestas) {
+        this.arestas = arestas;
     }
     
 }
