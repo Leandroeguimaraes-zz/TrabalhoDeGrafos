@@ -17,8 +17,10 @@ public class Main {
     public static void main(String[] args) {
         Grafo g = new Grafo(5);
         g.geraGrafo();
+        System.out.println("Arestas");
         g.imprimeGrafo();
         System.out.println("  ---  ");
+        System.out.println("Vizinhos de um Vertice");
         for (Vertice v: g.vertices) {
             v.imprimeVizinhos();
         }
