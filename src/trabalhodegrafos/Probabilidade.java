@@ -10,7 +10,11 @@ package trabalhodegrafos;
  * @author Leandro
  */
 public class Probabilidade {
-    public static void geraProbabilidade(){
-        int prob = (int)(Math.random()*1);
+    public static boolean geraProbabilidade(){
+        int prob = (int)(Math.random()*2);
+        if(prob==1)
+            return true;
+        else
+            return false;
     }
 }

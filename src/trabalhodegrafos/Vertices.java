@@ -10,5 +10,13 @@ package trabalhodegrafos;
  * @author Leandro
  */
 public class Vertices {
+    String letra = null;
+    int numero = 0;
     
+    public Vertices(String letra){
+        this.letra=letra;
+    }
+    public Vertices(int numero){
+        this.numero=numero;
+    }
 }
