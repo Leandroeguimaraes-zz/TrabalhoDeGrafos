@@ -9,8 +9,8 @@ public class Main {
         
         System.out.println("É árvore: " + g.isArvore());
         System.out.println("Tem ciclo: " +g.hasCiclo());
-        System.out.println("É conexo: " +g.isConexo());
         System.out.println("É bipartido: " +g.isBipartido());
+        System.out.println("É conexo: " +g.isConexo());
     }
     
 }
