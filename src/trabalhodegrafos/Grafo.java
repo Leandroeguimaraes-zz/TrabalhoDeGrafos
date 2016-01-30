@@ -30,24 +30,26 @@ public class Grafo {
         
     }
     public void geraArestas(){
-
+        
         for (int i = 0; i < vertices.size(); i++) {
             for (int j = 0; j < vertices.size(); j++) {
-                if(Probabilidade.geraProbabilidade() && vertices.get(i)!=vertices.get(j)) 
+                if(Probabilidade.geraProbabilidade() && vertices.get(i)!=vertices.get(j)) {
                      arestas.add(new Aresta(vertices.get(i),vertices.get(j)));
+                     vertices.get(i).addVizinho(vertices.get(j));
+                     vertices.get(j).addVizinho(vertices.get(i));
+                }
             }
-            
-               
-           
-      
+
         }
     }
-    public void geraGrafo(){
+    public List<Aresta> geraGrafo(){
         
         geraVertices();
         geraArestas();
+        return arestas;
         
-    } 
+    }
+    
     public void imprimeGrafo(){
         for (Aresta aresta :arestas) {
             System.out.println(aresta.verticeA.numero + " " + aresta.verticeB.numero);

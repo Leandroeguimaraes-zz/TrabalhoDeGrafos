@@ -5,6 +5,8 @@
  */
 package trabalhodegrafos;
 
+import java.util.List;
+
 /**
  *
  * @author Leandro
@@ -13,9 +15,15 @@ public class Main {
 
     
     public static void main(String[] args) {
-        Grafo g = new Grafo(4);
+        Grafo g = new Grafo(5);
         g.geraGrafo();
         g.imprimeGrafo();
+        System.out.println("  ---  ");
+        for (Vertice v: g.vertices) {
+            v.imprimeVizinhos();
+        }
+            
+        
     }
     
 }
