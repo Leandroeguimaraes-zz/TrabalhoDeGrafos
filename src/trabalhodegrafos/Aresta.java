@@ -9,27 +9,27 @@ package trabalhodegrafos;
  *
  * @author Leandro
  */
-public class Arestas {
+public class Aresta {
 
-    String verticeA, verticeB;
+    Vertice verticeA, verticeB;
     int peso;
 
-    public Arestas(String verticeA, String verticeB, int peso) {
+    public Aresta(Vertice verticeA, Vertice verticeB, int peso) {
         this.verticeA = verticeA;
         this.verticeB = verticeB;
         this.peso = peso;
     }
-    public Arestas(String verticeA, String verticeB) {
+    public Aresta(Vertice verticeA, Vertice verticeB) {
         this.verticeA = verticeA;
         this.verticeB = verticeB;
         this.peso = 1;
     }
 
-    public String getVerticeA() {
+    public Vertice getVerticeA() {
         return verticeA;
     }
 
-    public String getVerticeB() {
+    public Vertice getVerticeB() {
         return verticeB;
     }
 

@@ -9,12 +9,15 @@ package trabalhodegrafos;
  *
  * @author Leandro
  */
-public class Probabilidade {
-    public static boolean geraProbabilidade(){
-        int prob = (int)(Math.random()*2);
-        if(prob==1)
+public final class Probabilidade {
+
+    public static final boolean geraProbabilidade() {
+        int prob = (int) (Math.random() * 2);
+        if (prob == 1) 
             return true;
-        else
+         else 
             return false;
+        
+
     }
 }

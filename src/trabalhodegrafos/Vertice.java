@@ -9,14 +9,14 @@ package trabalhodegrafos;
  *
  * @author Leandro
  */
-public class Vertices {
+public class Vertice {
     String letra = null;
     int numero = 0;
     
-    public Vertices(String letra){
+    public Vertice(String letra){
         this.letra=letra;
     }
-    public Vertices(int numero){
+    public Vertice(int numero){
         this.numero=numero;
     }
 }
