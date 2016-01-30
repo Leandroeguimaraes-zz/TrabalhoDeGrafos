@@ -31,10 +31,13 @@ public class Grafo {
     }
     public void geraArestas(){
 
-        for (int i = 0; i < vertices.size()-1; i++) {
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                if(Probabilidade.geraProbabilidade() && vertices.get(i)!=vertices.get(j)) 
+                     arestas.add(new Aresta(vertices.get(i),vertices.get(j)));
+            }
             
-            if(Probabilidade.geraProbabilidade()) 
-                arestas.add(new Aresta(vertices.get(i),vertices.get(i+1)));
+               
            
       
         }

@@ -13,7 +13,7 @@ public class Main {
 
     
     public static void main(String[] args) {
-        Grafo g = new Grafo(9);
+        Grafo g = new Grafo(4);
         g.geraGrafo();
         g.imprimeGrafo();
     }
