@@ -58,6 +58,7 @@ public class Grafo {
 
             if (vertices.get(i).getVizinhos().isEmpty()) {
                 arestas.add(new Aresta(vertices.get(i), new Vertice(0)));
+//                vertices.get(i).addVizinho(new Vertice(0));
             }
         }
     }
@@ -78,13 +79,12 @@ public class Grafo {
             if (w.getPE() == 0) {
                 w.setFoiVisitado(true);
                 w.setPai(v);
-                pilha.add(new Aresta(v, w));
                 System.out.print(v.getNumero() + "-> " + w.getNumero() + " -> ");
-
+                pilha.add(new Aresta(v, w)); // empilhar vw
                 w.setCor(1 - v.getCor());
                 buscaEmProfundidade(w);
                 
-                if (w.getBack() >= v.getPE()) {
+                if (w.getBack() >= v.getPE()) { // se back(w)>=PE(v) desempilhar e imprimir tudo até vw
                     Aresta a = new Aresta(v, w);
                     System.out.println("\nBloco: ");
                     while (a.comparaAresta(pilha.peek()) == false) {
@@ -97,9 +97,10 @@ public class Grafo {
                 
                 v.setBack(Math.min(v.getBack(), w.getBack()));
             } else {
-                if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() == w.getNumero()) {
-                    w.addArestaDeRetorno(v);
-                    pilha.add(new Aresta(v,w));
+                if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) { 
+                    w.addArestaDeRetorno(v);    // aresta de retorno
+                    System.out.println("\n Aresta de Retorno = " + v.getNumero() +" --> " + w.getNumero() );
+                    pilha.add(new Aresta(v,w)); // empilhar vw
                     v.setBack(Math.min(v.getBack(), w.getPE()));
                     if (w.getCor() != v.getCor()) {
                         this.bipartido = false;
