@@ -14,10 +14,19 @@ import java.util.List;
  */
 public class Vertice {
     private String letra = null;
+    
     private int numero = 0;
+    
     private List<Vertice> vizinhos = new ArrayList<>();
-    private int pe=0;
-    private int ps=0;
+    private List<Aresta> retornos= new ArrayList<>();
+    
+    private int PE=0;
+    private int PS=0;
+    private int cor=0;
+    
+    private Vertice pai;
+    
+    private boolean foiVisitado;
     
     public Vertice(String letra){
         this.letra=letra;
@@ -29,9 +38,16 @@ public class Vertice {
         vizinhos.add(v);
     }
     
+    public void addArestaDeRetorno(Vertice destino){
+        if(this.retornos == null){
+            this.retornos = new ArrayList<>();
+        }
+        this.retornos.add(new Aresta(this, destino));
+    }
+    
     public void imprimeVizinhos(){
-        for (int i = 0; i < vizinhos.size(); i++) {
-            System.out.println(this.numero+ "-> " + vizinhos.get(i).getNumero());
+        for (Vertice vizinho : vizinhos) {
+            System.out.println(this.numero+ "-> " + vizinho.getNumero());
         }
         
     }
@@ -59,5 +75,55 @@ public class Vertice {
     public void setVizinhos(List<Vertice> vizinhos) {
         this.vizinhos = vizinhos;
     }
-    
+
+    public int getPE() {
+        return PE;
+    }
+
+    public void setPE(int PE) {
+        this.PE =PE;
+    }
+
+    public int getPS() {
+        return PS;
+    }
+
+    public void setPS(int PS) {
+        this.PS = PS;
+    }
+
+    public int getCor() {
+        return cor;
+    }
+
+    public void setCor(int cor) {
+        this.cor = cor;
+    }
+
+    public Vertice getPai() {
+        return pai;
+    }
+
+    public void setPai(Vertice pai) {
+        this.pai = pai;
+    }
+    public boolean isFoiVisitado() {
+        return foiVisitado;
+    }
+
+    public void setFoiVisitado(boolean foiVisitado) {
+        this.foiVisitado = foiVisitado;
+    }
+    public boolean hasArestaDeRetorno(){
+    	return retornos.size() > 0;
+    }
+    public void resteVertice(){
+	    this.PE = 0;
+	    this.PS = 0;
+	    this.cor = 0;
+	    this.pai = null;
+	    this.vizinhos = new ArrayList<>();
+	    this.retornos = new ArrayList<>();
+	    this.foiVisitado = false;
+    }
 }
