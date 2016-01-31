@@ -36,5 +36,10 @@ public class Aresta {
     public int getPeso() {
         return peso;
     }
+    
+    public boolean comparaAresta(Aresta a){
+        return this.getVerticeA().getNumero()== a.getVerticeA().getNumero() && 
+                this.getVerticeB().getNumero() == a.getVerticeB().getNumero();
+    }
 
 }

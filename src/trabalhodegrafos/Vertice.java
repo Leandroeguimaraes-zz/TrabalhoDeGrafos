@@ -23,6 +23,7 @@ public class Vertice {
     private int PE=0;
     private int PS=0;
     private int cor=0;
+    private int back=0;
     
     private Vertice pai;
     
@@ -49,7 +50,7 @@ public class Vertice {
         for (Vertice vizinho : vizinhos) {
             System.out.println(this.numero+ "-> " + vizinho.getNumero());
         }
-        
+       
     }
 
     public String getLetra() {
@@ -126,4 +127,21 @@ public class Vertice {
 	    this.retornos = new ArrayList<>();
 	    this.foiVisitado = false;
     }
+
+    public List<Aresta> getRetornos() {
+        return retornos;
+    }
+
+    public void setRetornos(List<Aresta> retornos) {
+        this.retornos = retornos;
+    }
+
+    public int getBack() {
+        return back;
+    }
+
+    public void setBack(int back) {
+        this.back = back;
+    }
+    
 }

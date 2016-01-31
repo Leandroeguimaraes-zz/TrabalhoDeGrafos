@@ -15,16 +15,17 @@ public class Main {
 
     
     public static void main(String[] args) {
-        Grafo g = new Grafo(4);
+        Grafo g = new Grafo(5);
         System.out.println("Arestas");
         g.imprimeGrafo();
         System.out.println("  ---  ");
-        System.out.println("Vizinhos de um Vertice");
+//        System.out.println("Vizinhos de um Vertice");
 //        for (Vertice v: g.getVertices()) {
 //            v.imprimeVizinhos();
 //        }
+        System.out.println("Arvore:");
         g.buscaEmProfundidade();
-        System.out.println("É árvore: " + g.isArvore());
+        System.out.println("\n\nÉ árvore: " + g.isArvore());
         System.out.println("Tem ciclo: " +g.hasCiclo());
         System.out.println("É bipartido: " +g.isBipartido());
         System.out.println("É conexo: " +g.isConexo());

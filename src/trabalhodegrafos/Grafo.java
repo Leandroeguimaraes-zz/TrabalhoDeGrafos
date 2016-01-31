@@ -7,6 +7,7 @@ package trabalhodegrafos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Grafo {
 
     private List<Vertice> vertices = new ArrayList<>();
     private List<Aresta> arestas = new ArrayList<>();
+    private Stack<Aresta> pilha = new Stack<>();
 
     private boolean bipartido = true;
 
@@ -70,17 +72,35 @@ public class Grafo {
     private void buscaEmProfundidade(Vertice v) {
         t++;
         v.setPE(t);
+        v.setBack(v.getPE());
         List<Vertice> vizinhos = v.getVizinhos();
         for (Vertice w : vizinhos) {
             if (w.getPE() == 0) {
                 w.setFoiVisitado(true);
                 w.setPai(v);
-                System.out.print(v.getNumero()+ "-> "+ w.getNumero() +" ");
+                pilha.add(new Aresta(v, w));
+                System.out.print(v.getNumero() + "-> " + w.getNumero() + " -> ");
+
                 w.setCor(1 - v.getCor());
                 buscaEmProfundidade(w);
+                
+                if (w.getBack() >= v.getPE()) {
+                    Aresta a = new Aresta(v, w);
+                    System.out.println("\nBloco: ");
+                    while (a.comparaAresta(pilha.peek()) == false) {
+                        Aresta apilha = pilha.pop();
+                        System.out.print(apilha.getVerticeA().getNumero() + "-" + apilha.getVerticeB().getNumero() + ",");
+                    }
+                    Aresta apilha2 = pilha.pop();
+                    System.out.print(apilha2.getVerticeA().getNumero() + "-" + apilha2.getVerticeB().getNumero() + ",");
+                }
+                
+                v.setBack(Math.min(v.getBack(), w.getBack()));
             } else {
                 if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() == w.getNumero()) {
                     w.addArestaDeRetorno(v);
+                    pilha.add(new Aresta(v,w));
+                    v.setBack(Math.min(v.getBack(), w.getPE()));
                     if (w.getCor() != v.getCor()) {
                         this.bipartido = false;
                     }
@@ -117,44 +137,44 @@ public class Grafo {
     public void setArestas(List<Aresta> arestas) {
         this.arestas = arestas;
     }
-    
-    public boolean hasCiclo(){
-		return hasArestaDeRetorno();
-	}
-	
-	public boolean isBipartido(){
-		return bipartido;
-	}
-	
-	public boolean isConexo() {
-		resetVertices();
-		int c = 0;
-		for (Vertice v : vertices) {
-			if(v.getPE() == 0){
-				c++;
-				buscaEmProfundidade();
-			}
-		}
-		return c == vertices.size();
-	}
-	
-	public boolean isArvore(){
-		return !hasArestaDeRetorno();
-	}
 
-	private boolean hasArestaDeRetorno() {
-		for (Vertice v : vertices) {
-			if(v.hasArestaDeRetorno()){
-				return true;
-			}
-		}
-		return false;
-	}
-        public void resetVertices(){
-		for (Vertice v : vertices) {
-			v.resteVertice();
-		}
-	}
-        
+    public boolean hasCiclo() {
+        return hasArestaDeRetorno();
+    }
+
+    public boolean isBipartido() {
+        return bipartido;
+    }
+
+    public boolean isConexo() {
+        resetVertices();
+        int c = 0;
+        for (Vertice v : vertices) {
+            if (v.getPE() == 0) {
+                c++;
+                buscaEmProfundidade();
+            }
+        }
+        return c == vertices.size();
+    }
+
+    public boolean isArvore() {
+        return !hasArestaDeRetorno();
+    }
+
+    private boolean hasArestaDeRetorno() {
+        for (Vertice v : vertices) {
+            if (v.hasArestaDeRetorno()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void resetVertices() {
+        for (Vertice v : vertices) {
+            v.resteVertice();
+        }
+    }
 
 }
