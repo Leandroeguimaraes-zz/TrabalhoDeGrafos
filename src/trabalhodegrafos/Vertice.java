@@ -52,7 +52,7 @@ public class Vertice {
         }
        
     }
-
+   
     public String getLetra() {
         return letra;
     }

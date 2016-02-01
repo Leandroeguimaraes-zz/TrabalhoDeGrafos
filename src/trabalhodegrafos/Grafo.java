@@ -17,6 +17,8 @@ public class Grafo {
 
     private List<Vertice> vertices = new ArrayList<>();
     private List<Aresta> arestas = new ArrayList<>();
+    private Blocos blocos = new Blocos();
+    private Bloco bloco;
     private Stack<Aresta> pilha = new Stack<>();
 
     private boolean bipartido = true;
@@ -87,15 +89,27 @@ public class Grafo {
                 if (w.getBack() >= v.getPE()) { // se back(w)>=PE(v) desempilhar e imprimir tudo até vw
                     Aresta a = new Aresta(v, w);
                     System.out.println("\nBloco: ");
+                    bloco = new Bloco();
                     while (a.comparaAresta(pilha.peek()) == false) {
+                       
                         Aresta apilha = pilha.pop();
+                        bloco.add(apilha);  // adicionando arestas ao bloco
                         System.out.print(apilha.getVerticeA().getNumero() + "-" + apilha.getVerticeB().getNumero() + ",");
+                        
                     }
                     Aresta apilha2 = pilha.pop();
+                    bloco.add(apilha2);   // adicionando arestas ao bloco
                     System.out.print(apilha2.getVerticeA().getNumero() + "-" + apilha2.getVerticeB().getNumero() + ",");
+                    blocos.addBloco(bloco); // no fim, adiciona todo o bloco a lista de blocos.
                 }
                 
                 v.setBack(Math.min(v.getBack(), w.getBack()));
+//                if(w.getBack()!=0){
+//                    if(v.getBack() != w.getBack()){
+//                        System.out.println("Ponte :" + v.getNumero() +"-"+ w.getNumero());
+//                        System.out.println("Articulação: "+ v.getNumero());
+//                    }
+//                }
             } else {
                 if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) { 
                     w.addArestaDeRetorno(v);    // aresta de retorno
@@ -116,6 +130,12 @@ public class Grafo {
         for (Aresta aresta : arestas) {
             System.out.println(aresta.getVerticeA().getNumero() + " " + aresta.getVerticeB().getNumero());
         }
+    }
+    public void imprimeArticulacao(){
+        blocos.identificaArticulacao();
+    }
+    public void imrprimePonte(){
+        blocos.identificaPontes();
     }
 
     public Vertice getRaiz() {
@@ -177,5 +197,11 @@ public class Grafo {
             v.resteVertice();
         }
     }
-
+//    public void imprimeArestasDeRetorno(){
+//        for (Vertice v: vertices) {
+//            List<Aresta>  retornos = v.getRetornos();
+//            for (Aresta retorno : retornos) 
+//                System.out.println(retorno.getVerticeA().getNumero() + " ---> " + retorno.getVerticeB().getNumero());
+//        }
+              
 }
