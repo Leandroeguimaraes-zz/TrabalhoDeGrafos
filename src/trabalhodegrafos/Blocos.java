@@ -46,24 +46,40 @@ public class Blocos {
 
     }
 
-    public void identificaPontes() {
-        this.combinacaoDeArestasComVertices();
-        for (Bloco bloco : blocos) {
-            for (int j = 0; j < bloco.getArestas().size(); j++) {
-                for (Aresta arestasDeArticulacoe : arestasDeArticulacoes) {
-                    if (bloco.getArestas().get(j).comparaArestaSemOrdem(arestasDeArticulacoe)) {
-                        Aresta a = arestasDeArticulacoe;
-                        if (!pontes.contains(a)) {
-                            pontes.add(a);
-                        }
-                    }
-                }
-            }
+//    public void identificaPontes() {
+//        this.combinacaoDeArestasComVertices();
+//        for (Bloco bloco : blocos) {
+//            for (int j = 0; j < bloco.getArestas().size(); j++) {
+//                for (Aresta arestasDeArticulacoe : arestasDeArticulacoes) {
+//                    if (bloco.getArestas().get(j).comparaArestaSemOrdem(arestasDeArticulacoe)) {
+//                        Aresta a = arestasDeArticulacoe;
+//                        if (!pontes.contains(a)) {
+//                            pontes.add(a);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        for (Aresta aresta : pontes) {
+//            System.out.println(aresta.getVerticeA().getNumero() + "-" + aresta.getVerticeB().getNumero() + "; ");
+//        }
+//
+//    }
+    public void identificaPontesRemake(){
+        for (Bloco bloco: blocos) {
+            if(bloco.getArestas().size()==1 )
+                pontes.add(bloco.getArestas().get(0));
         }
-        for (Aresta aresta : pontes) {
+         for (Aresta aresta : pontes) {
             System.out.println(aresta.getVerticeA().getNumero() + "-" + aresta.getVerticeB().getNumero() + "; ");
         }
-
+    }
+    public boolean existeArticulacaoNaAresta(Aresta aresta){
+        for (Vertice v : articulacoes) {
+            if((aresta.getVerticeA().getNumero()== v.getNumero()) || (aresta.getVerticeB().getNumero()==v.getNumero()))
+                return true;
+        }
+        return false;
     }
 
     public void combinacaoDeArestasComVertices() {
