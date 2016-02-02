@@ -18,7 +18,6 @@ public class Vertice {
     private int numero = 0;
     
     private List<Vertice> vizinhos = new ArrayList<>();
-    private List<Aresta> retornos= new ArrayList<>();
     
     private int PE=0;
     private int PS=0;
@@ -37,13 +36,6 @@ public class Vertice {
     }
     public void addVizinho(Vertice v){
         vizinhos.add(v);
-    }
-    
-    public void addArestaDeRetorno(Vertice destino){
-        if(this.retornos == null){
-            this.retornos = new ArrayList<>();
-        }
-        this.retornos.add(new Aresta(this, destino));
     }
     
     public void imprimeVizinhos(){
@@ -115,25 +107,13 @@ public class Vertice {
     public void setFoiVisitado(boolean foiVisitado) {
         this.foiVisitado = foiVisitado;
     }
-    public boolean hasArestaDeRetorno(){
-    	return retornos.size() > 0;
-    }
     public void resetVertice(){
         this.PE = 0;
         this.PS = 0;
         this.cor = 0;
         this.pai = null;
         this.vizinhos = new ArrayList<>();
-        this.retornos = new ArrayList<>();
         this.foiVisitado = false;
-    }
-
-    public List<Aresta> getRetornos() {
-        return retornos;
-    }
-
-    public void setRetornos(List<Aresta> retornos) {
-        this.retornos = retornos;
     }
 
     public int getBack() {

@@ -9,11 +9,11 @@ public class Grafo {
 
     private List<Vertice> vertices = new ArrayList<>();
     private List<Aresta> arestas = new ArrayList<>();
+    private List<Aresta> retornos = new ArrayList<>();
     private Blocos blocos = new Blocos();
     private Bloco bloco;
     private Stack<Aresta> pilha = new Stack<>();
     private List<Aresta> circuitoEuleriano = new ArrayList<>();
-    private List<Aresta> retorno = new ArrayList<>();
     private List<Aresta> arestasArvore = new ArrayList<>();
 
     private boolean bipartido = true;
@@ -63,7 +63,8 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-        Vertice raiz = getRaiz();
+       // Vertice raiz = getRaiz();
+        Vertice raiz = criaGrafoFixo();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
     }
@@ -103,8 +104,8 @@ public class Grafo {
                 v.setBack(Math.min(v.getBack(), w.getBack()));
             } else {
                 if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) {
-                    w.addArestaDeRetorno(v);    // aresta de retorno
-                    retorno.add(new Aresta(v,w));                   
+                    retornos.add(new Aresta(v, w));
+                    System.out.println("\n Aresta de Retorno = " + v.getNumero() + " --> " + w.getNumero());
                     pilha.add(new Aresta(v, w)); // empilhar vw
                     circuitoEuleriano.add(new Aresta(v, w));
                     v.setBack(Math.min(v.getBack(), w.getPE()));
@@ -137,7 +138,7 @@ public class Grafo {
         blocos.identificaPontes();
     }
     public void imprimeArestaDeRetorno(){
-        for (Aresta aresta : retorno) {
+        for (Aresta aresta : this.retornos) {
             System.out.println(aresta.getVerticeA().getNumero()+ "->" + aresta.getVerticeB().getNumero());
         }
     }
@@ -209,12 +210,7 @@ public class Grafo {
     }
 
     private boolean hasArestaDeRetorno() {
-        for (Vertice v : vertices) {
-            if (v.hasArestaDeRetorno()) {
-                return true;
-            }
-        }
-        return false;
+        return this.retornos.size() > 0;
     }
 
     public void resetVertices() {
@@ -222,12 +218,6 @@ public class Grafo {
             v.resetVertice();
         }
     }
-//    public void imprimeArestasDeRetorno(){
-//        for (Vertice v: vertices) {
-//            List<Aresta>  retornos = v.getRetornos();
-//            for (Aresta retorno : retornos) 
-//                System.out.println(retorno.getVerticeA().getNumero() + " ---> " + retorno.getVerticeB().getNumero());
-//        }
 
     public Blocos getBlocos() {
         return blocos;
@@ -262,11 +252,11 @@ public class Grafo {
     }
 
     public List<Aresta> getRetorno() {
-        return retorno;
+        return retornos;
     }
 
     public void setRetorno(List<Aresta> retorno) {
-        this.retorno = retorno;
+        this.retornos = retorno;
     }
 
     public static int getT() {
@@ -277,7 +267,7 @@ public class Grafo {
         Grafo.t = t;
     }
 
-    public void criaGrafoFixo() {
+    public Vertice criaGrafoFixo() {
         Vertice a = new Vertice(1);
         Vertice b = new Vertice(2);
         Vertice c = new Vertice(3);
@@ -311,6 +301,8 @@ public class Grafo {
         g.addVizinho(e);
         g.addVizinho(f);
         vertices = Arrays.asList(new Vertice[]{a,b,c,d,e,f,g});
+        
+        return e;
         
     }
 

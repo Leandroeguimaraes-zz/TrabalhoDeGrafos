@@ -1,15 +1,9 @@
-
 package trabalhodegrafos;
 
-/**
- *
- * @author Leandro
- */
 public class Main {
     
     public static void main(String[] args) {
           Grafo g = new Grafo();
-          g.criaGrafoFixo();
           
           System.out.println("Grafo");
           g.imprimeGrafo();
@@ -33,13 +27,5 @@ public class Main {
           
           System.out.println("\nPonte: ");
           g.imprimePonte();
-          
-          
-
-//        System.out.println("Vizinhos de um Vertice");
-//        for (Vertice v: g.getVertices()) {
-//            v.imprimeVizinhos();
-//        }     
     }
-    
 }
