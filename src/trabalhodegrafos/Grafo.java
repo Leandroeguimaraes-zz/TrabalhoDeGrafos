@@ -63,8 +63,8 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-       // Vertice raiz = getRaiz();
-        Vertice raiz = criaGrafoFixo();
+        Vertice raiz = getRaiz();
+//        Vertice raiz = criaGrafoFixo();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
     }
@@ -108,9 +108,10 @@ public class Grafo {
                     pilha.add(new Aresta(v, w)); // empilhar vw
                     circuitoEuleriano.add(new Aresta(v, w));
                     v.setBack(Math.min(v.getBack(), w.getPE()));
-                    if (w.getCor() != v.getCor()) {
+                    if (w.getCor() == v.getCor()) {
                         this.bipartido = false;
                     }
+                    
                 }
             }
         }
