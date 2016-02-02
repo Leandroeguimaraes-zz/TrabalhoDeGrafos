@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trabalhodegrafos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-/**
- *
- * @author Leandro
- */
 public class Grafo {
 
     private List<Vertice> vertices = new ArrayList<>();
@@ -28,6 +20,9 @@ public class Grafo {
     public Grafo(int numVertices) {
         geraVertices(numVertices);
         geraArestas();
+    }
+
+    public Grafo() {
     }
 
     public void geraVertices(int numVertices) {
@@ -66,7 +61,6 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-        int t = 0;
         Vertice raiz = getRaiz();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
@@ -85,24 +79,24 @@ public class Grafo {
                 pilha.add(new Aresta(v, w)); // empilhar vw
                 w.setCor(1 - v.getCor());
                 buscaEmProfundidade(w);
-                
+
                 if (w.getBack() >= v.getPE()) { // se back(w)>=PE(v) desempilhar e imprimir tudo até vw
                     Aresta a = new Aresta(v, w);
                     System.out.println("\nBloco: ");
                     bloco = new Bloco();
                     while (a.comparaAresta(pilha.peek()) == false) {
-                       
+
                         Aresta apilha = pilha.pop();
                         bloco.add(apilha);  // adicionando arestas ao bloco
                         System.out.print(apilha.getVerticeA().getNumero() + "-" + apilha.getVerticeB().getNumero() + ",");
-                        
+
                     }
                     Aresta apilha2 = pilha.pop();
                     bloco.add(apilha2);   // adicionando arestas ao bloco
                     System.out.print(apilha2.getVerticeA().getNumero() + "-" + apilha2.getVerticeB().getNumero() + ",");
                     blocos.addBloco(bloco); // no fim, adiciona todo o bloco a lista de blocos.
                 }
-                
+
                 v.setBack(Math.min(v.getBack(), w.getBack()));
 //                if(w.getBack()!=0){
 //                    if(v.getBack() != w.getBack()){
@@ -111,10 +105,10 @@ public class Grafo {
 //                    }
 //                }
             } else {
-                if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) { 
+                if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) {
                     w.addArestaDeRetorno(v);    // aresta de retorno
-                    System.out.println("\n Aresta de Retorno = " + v.getNumero() +" --> " + w.getNumero() );
-                    pilha.add(new Aresta(v,w)); // empilhar vw
+                    System.out.println("\n Aresta de Retorno = " + v.getNumero() + " --> " + w.getNumero());
+                    pilha.add(new Aresta(v, w)); // empilhar vw
                     v.setBack(Math.min(v.getBack(), w.getPE()));
                     if (w.getCor() != v.getCor()) {
                         this.bipartido = false;
@@ -131,10 +125,12 @@ public class Grafo {
             System.out.println(aresta.getVerticeA().getNumero() + " " + aresta.getVerticeB().getNumero());
         }
     }
-    public void imprimeArticulacao(){
+
+    public void imprimeArticulacao() {
         blocos.identificaArticulacao();
     }
-    public void imrprimePonte(){
+
+    public void imrprimePonte() {
         blocos.identificaPontes();
     }
 
@@ -173,7 +169,7 @@ public class Grafo {
         for (Vertice v : vertices) {
             if (v.getPE() == 0) {
                 c++;
-                buscaEmProfundidade();
+                buscaEmProfundidade(v);
             }
         }
         return c == vertices.size();
@@ -194,7 +190,7 @@ public class Grafo {
 
     public void resetVertices() {
         for (Vertice v : vertices) {
-            v.resteVertice();
+            v.resetVertice();
         }
     }
 //    public void imprimeArestasDeRetorno(){
@@ -203,5 +199,42 @@ public class Grafo {
 //            for (Aresta retorno : retornos) 
 //                System.out.println(retorno.getVerticeA().getNumero() + " ---> " + retorno.getVerticeB().getNumero());
 //        }
-              
+
+    public void criaGrafoFixo() {
+        Vertice a = new Vertice(1);
+        Vertice b = new Vertice(2);
+        Vertice c = new Vertice(3);
+        Vertice d = new Vertice(4);
+        Vertice e = new Vertice(5);
+        Vertice f = new Vertice(6);
+        Vertice g = new Vertice(7);
+
+        a.addVizinho(b);
+        a.addVizinho(c);
+        a.addVizinho(d);
+
+        b.addVizinho(a);
+        b.addVizinho(d);
+
+        c.addVizinho(a);
+        c.addVizinho(d);
+        c.addVizinho(e);
+
+        d.addVizinho(b);
+        d.addVizinho(c);
+        d.addVizinho(a);
+
+        e.addVizinho(c);
+        e.addVizinho(f);
+        e.addVizinho(g);
+
+        f.addVizinho(e);
+        f.addVizinho(g);
+
+        g.addVizinho(e);
+        g.addVizinho(f);
+        vertices = Arrays.asList(new Vertice[]{a,b,c,d,e,f,g});
+        
+    }
+
 }

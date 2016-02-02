@@ -118,14 +118,14 @@ public class Vertice {
     public boolean hasArestaDeRetorno(){
     	return retornos.size() > 0;
     }
-    public void resteVertice(){
-	    this.PE = 0;
-	    this.PS = 0;
-	    this.cor = 0;
-	    this.pai = null;
-	    this.vizinhos = new ArrayList<>();
-	    this.retornos = new ArrayList<>();
-	    this.foiVisitado = false;
+    public void resetVertice(){
+        this.PE = 0;
+        this.PS = 0;
+        this.cor = 0;
+        this.pai = null;
+        this.vizinhos = new ArrayList<>();
+        this.retornos = new ArrayList<>();
+        this.foiVisitado = false;
     }
 
     public List<Aresta> getRetornos() {
