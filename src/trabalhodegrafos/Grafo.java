@@ -64,8 +64,8 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-        //Vertice raiz = getRaiz();
-        Vertice raiz = criaGrafoFixo();
+        Vertice raiz = getRaiz();
+       // Vertice raiz = criaGrafoFixo();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
     }
@@ -147,7 +147,12 @@ public class Grafo {
                 this.buscaEmProfundidade(pilha.peek());
                 
                 System.out.println("Arvore novo grafo:\n\n");
-                this.imprimeCaminhoEuleriano();
+                
+//                this.imprimeCaminhoEuleriano();
+                
+//                System.out.println("numero de Pontes = "+ blocos.getPontes().size());
+//                System.out.println("retornos = "+ retornos.size()); 
+//                System.out.println("circuitoEuleriano = "+ circuitoEuleriano.size());
                 
             } else {
                 pilha.pop();
@@ -236,21 +241,10 @@ public class Grafo {
         }
     }
 
-    public boolean isEuleriano() {
-        for (Aresta a1 : circuitoEuleriano) {
-            for (Aresta a2 : circuitoEuleriano) {
-                if (a1.comparaArestaSemOrdem(a2)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     public boolean isCircuitoEuleriano() {
-        return this.isEuleriano()
-                && (circuitoEuleriano.get(circuitoEuleriano.size() - 1).getVerticeB().getNumero()
-                == circuitoEuleriano.get(0).getVerticeA().getNumero());
+        if(this.isConexo() && isGrauPar())
+            return true;
+        else return false;
     }
 
     public void imprimeCaminhoEuleriano() {
@@ -372,7 +366,7 @@ public class Grafo {
         a.addVizinho(b);
         a.addVizinho(c);
 
-       b.addVizinho(a);
+        b.addVizinho(a);
         b.addVizinho(c);
 
         c.addVizinho(a);
