@@ -13,6 +13,8 @@ public class Grafo {
     private Bloco bloco;
     private Stack<Aresta> pilha = new Stack<>();
     private List<Aresta> circuitoEuleriano = new ArrayList<>();
+    private List<Aresta> retorno = new ArrayList<>();
+    private List<Aresta> arestasArvore = new ArrayList<>();
 
     private boolean bipartido = true;
 
@@ -52,10 +54,9 @@ public class Grafo {
     }
 
     public void addVerticeIsolado() {
-        for (int i = 0; i < vertices.size(); i++) {
-
-            if (vertices.get(i).getVizinhos().isEmpty()) {
-                arestas.add(new Aresta(vertices.get(i), new Vertice(0)));
+        for (Vertice vertice : vertices) {
+            if (vertice.getVizinhos().isEmpty()) {
+                arestas.add(new Aresta(vertice, new Vertice(0)));
 //                vertices.get(i).addVizinho(new Vertice(0));
             }
         }
@@ -76,7 +77,7 @@ public class Grafo {
             if (w.getPE() == 0) {
                 w.setFoiVisitado(true);
                 w.setPai(v);
-                System.out.print(v.getNumero() + "-> " + w.getNumero() + " -> ");
+                arestasArvore.add(new Aresta(v,w));
                 pilha.add(new Aresta(v, w)); // empilhar vw
                 circuitoEuleriano.add(new Aresta(v, w));
                 w.setCor(1 - v.getCor());
@@ -84,32 +85,26 @@ public class Grafo {
 
                 if (w.getBack() >= v.getPE()) { // se back(w)>=PE(v) desempilhar e imprimir tudo até vw
                     Aresta a = new Aresta(v, w);
-                    System.out.println("\nBloco: ");
+//                    System.out.println("\nBloco: ");
                     bloco = new Bloco();
                     while (a.comparaAresta(pilha.peek()) == false) {
 
                         Aresta apilha = pilha.pop();
                         bloco.add(apilha);  // adicionando arestas ao bloco
-                        System.out.print(apilha.getVerticeA().getNumero() + "-" + apilha.getVerticeB().getNumero() + ",");
+//                        System.out.print(apilha.getVerticeA().getNumero() + "-" + apilha.getVerticeB().getNumero() + ",");
 
                     }
                     Aresta apilha2 = pilha.pop();
                     bloco.add(apilha2);   // adicionando arestas ao bloco
-                    System.out.print(apilha2.getVerticeA().getNumero() + "-" + apilha2.getVerticeB().getNumero() + ",");
+//                    System.out.print(apilha2.getVerticeA().getNumero() + "-" + apilha2.getVerticeB().getNumero() + ",");
                     blocos.addBloco(bloco); // no fim, adiciona todo o bloco a lista de blocos.
                 }
 
                 v.setBack(Math.min(v.getBack(), w.getBack()));
-//                if(w.getBack()!=0){
-//                    if(v.getBack() != w.getBack()){
-//                        System.out.println("Ponte :" + v.getNumero() +"-"+ w.getNumero());
-//                        System.out.println("Articulação: "+ v.getNumero());
-//                    }
-//                }
             } else {
                 if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) {
                     w.addArestaDeRetorno(v);    // aresta de retorno
-                    System.out.println("\n Aresta de Retorno = " + v.getNumero() + " --> " + w.getNumero());
+                    retorno.add(new Aresta(v,w));                   
                     pilha.add(new Aresta(v, w)); // empilhar vw
                     circuitoEuleriano.add(new Aresta(v, w));
                     v.setBack(Math.min(v.getBack(), w.getPE()));
@@ -125,7 +120,12 @@ public class Grafo {
 
     public void imprimeGrafo() {
         for (Aresta aresta : arestas) {
-            System.out.println(aresta.getVerticeA().getNumero() + " " + aresta.getVerticeB().getNumero());
+            System.out.println(aresta.getVerticeA().getNumero() + "-" + aresta.getVerticeB().getNumero());
+        }
+    }
+    public void imprimeArvore(){
+        for (Aresta aresta: arestasArvore) {
+            System.out.println(aresta.getVerticeA().getNumero() + "->" + aresta.getVerticeB().getNumero());
         }
     }
 
@@ -133,8 +133,13 @@ public class Grafo {
         blocos.identificaArticulacao();
     }
 
-    public void imrprimePonte() {
+    public void imprimePonte() {
         blocos.identificaPontes();
+    }
+    public void imprimeArestaDeRetorno(){
+        for (Aresta aresta : retorno) {
+            System.out.println(aresta.getVerticeA().getNumero()+ "->" + aresta.getVerticeB().getNumero());
+        }
     }
 
     public boolean isEuleriano() {
@@ -223,6 +228,54 @@ public class Grafo {
 //            for (Aresta retorno : retornos) 
 //                System.out.println(retorno.getVerticeA().getNumero() + " ---> " + retorno.getVerticeB().getNumero());
 //        }
+
+    public Blocos getBlocos() {
+        return blocos;
+    }
+
+    public void setBlocos(Blocos blocos) {
+        this.blocos = blocos;
+    }
+
+    public Bloco getBloco() {
+        return bloco;
+    }
+
+    public void setBloco(Bloco bloco) {
+        this.bloco = bloco;
+    }
+
+    public Stack<Aresta> getPilha() {
+        return pilha;
+    }
+
+    public void setPilha(Stack<Aresta> pilha) {
+        this.pilha = pilha;
+    }
+
+    public List<Aresta> getCircuitoEuleriano() {
+        return circuitoEuleriano;
+    }
+
+    public void setCircuitoEuleriano(List<Aresta> circuitoEuleriano) {
+        this.circuitoEuleriano = circuitoEuleriano;
+    }
+
+    public List<Aresta> getRetorno() {
+        return retorno;
+    }
+
+    public void setRetorno(List<Aresta> retorno) {
+        this.retorno = retorno;
+    }
+
+    public static int getT() {
+        return t;
+    }
+
+    public static void setT(int t) {
+        Grafo.t = t;
+    }
 
     public void criaGrafoFixo() {
         Vertice a = new Vertice(1);

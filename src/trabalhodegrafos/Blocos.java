@@ -79,6 +79,17 @@ public class Blocos {
 
     }
 
+    public void imprimeBlocos() {
+        for (int i = 0; i < blocos.size(); i++) {
+            System.out.println("Bloco " + (i+1) + " :");
+            for (int j = 0; j < blocos.get(i).getArestas().size(); j++) {
+                System.out.println(blocos.get(i).getArestas().get(j).getVerticeA().getNumero()+"->"+
+                                   blocos.get(i).getArestas().get(j).getVerticeB().getNumero());
+            }
+        }
+
+    }
+
     public List<Bloco> getBlocos() {
         return blocos;
     }
