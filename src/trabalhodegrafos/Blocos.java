@@ -48,16 +48,15 @@ public class Blocos {
 
     public void identificaPontes() {
         this.combinacaoDeArestasComVertices();
-        for (int i = 0; i < blocos.size(); i++) {
-            for (int j = 0; j < blocos.get(i).getArestas().size(); j++) {
-                for (int k = 0; k < arestasDeArticulacoes.size(); k++) {
-                    if (blocos.get(i).getArestas().get(j).comparaArestaSemOrdem(arestasDeArticulacoes.get(k))) {
-                        Aresta a = arestasDeArticulacoes.get(k);
+        for (Bloco bloco : blocos) {
+            for (int j = 0; j < bloco.getArestas().size(); j++) {
+                for (Aresta arestasDeArticulacoe : arestasDeArticulacoes) {
+                    if (bloco.getArestas().get(j).comparaArestaSemOrdem(arestasDeArticulacoe)) {
+                        Aresta a = arestasDeArticulacoe;
                         if (!pontes.contains(a)) {
                             pontes.add(a);
                         }
                     }
-
                 }
             }
         }

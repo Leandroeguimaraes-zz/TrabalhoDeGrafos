@@ -12,6 +12,7 @@ public class Grafo {
     private Blocos blocos = new Blocos();
     private Bloco bloco;
     private Stack<Aresta> pilha = new Stack<>();
+    private List<Aresta> circuitoEuleriano = new ArrayList<>();
 
     private boolean bipartido = true;
 
@@ -21,8 +22,8 @@ public class Grafo {
         geraVertices(numVertices);
         geraArestas();
     }
-
     public Grafo() {
+       
     }
 
     public void geraVertices(int numVertices) {
@@ -77,6 +78,7 @@ public class Grafo {
                 w.setPai(v);
                 System.out.print(v.getNumero() + "-> " + w.getNumero() + " -> ");
                 pilha.add(new Aresta(v, w)); // empilhar vw
+                circuitoEuleriano.add(new Aresta(v, w));
                 w.setCor(1 - v.getCor());
                 buscaEmProfundidade(w);
 
@@ -109,6 +111,7 @@ public class Grafo {
                     w.addArestaDeRetorno(v);    // aresta de retorno
                     System.out.println("\n Aresta de Retorno = " + v.getNumero() + " --> " + w.getNumero());
                     pilha.add(new Aresta(v, w)); // empilhar vw
+                    circuitoEuleriano.add(new Aresta(v, w));
                     v.setBack(Math.min(v.getBack(), w.getPE()));
                     if (w.getCor() != v.getCor()) {
                         this.bipartido = false;
@@ -132,6 +135,27 @@ public class Grafo {
 
     public void imrprimePonte() {
         blocos.identificaPontes();
+    }
+
+    public boolean isEuleriano() {
+        for (Aresta a1 : circuitoEuleriano) {
+            for (Aresta a2 : circuitoEuleriano) {
+                if (a1.comparaArestaSemOrdem(a2)) {
+                    return false;
+                } 
+            }
+        }
+        return true;
+    }
+    public boolean isCircuitoEuleriano(){
+        return this.isEuleriano() && 
+      (circuitoEuleriano.get(circuitoEuleriano.size()-1).getVerticeB().getNumero()==
+                                circuitoEuleriano.get(0).getVerticeA().getNumero());
+    }
+    public void imprimeCaminhoEuleriano(){
+        for (Aresta aresta : circuitoEuleriano) {
+            System.out.println(aresta.getVerticeA().getNumero()+" ->" + aresta.getVerticeB().getNumero());
+        }
     }
 
     public Vertice getRaiz() {
