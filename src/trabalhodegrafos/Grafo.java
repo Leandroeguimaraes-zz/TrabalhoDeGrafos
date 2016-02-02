@@ -105,7 +105,6 @@ public class Grafo {
             } else {
                 if (w.getPS() == 0 && v.getPai() != null && v.getPai().getNumero() != w.getNumero()) {
                     retornos.add(new Aresta(v, w));
-                    System.out.println("\n Aresta de Retorno = " + v.getNumero() + " --> " + w.getNumero());
                     pilha.add(new Aresta(v, w)); // empilhar vw
                     circuitoEuleriano.add(new Aresta(v, w));
                     v.setBack(Math.min(v.getBack(), w.getPE()));
