@@ -97,4 +97,11 @@ public class Aresta {
                         return new Vertice(-1);
     }
 
+    @Override
+    public String toString() {
+        return verticeA.getNumero() + "---->"+ verticeB.getNumero(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
 }

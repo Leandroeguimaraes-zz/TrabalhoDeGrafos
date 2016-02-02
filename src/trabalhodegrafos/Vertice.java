@@ -27,6 +27,7 @@ public class Vertice {
     private Vertice pai;
     
     private boolean foiVisitado;
+    private boolean foiVisitadoEuleriano;
     
     public Vertice(String letra){
         this.letra=letra;
@@ -107,13 +108,21 @@ public class Vertice {
     public void setFoiVisitado(boolean foiVisitado) {
         this.foiVisitado = foiVisitado;
     }
+    
+    public Boolean isFoiVisitadoEuleriano() {
+        return this.foiVisitadoEuleriano;
+    }
+    
+    public void setFoiVisitadoEuleriano(boolean foiVisitadoEuleriano) {
+        this.foiVisitadoEuleriano = foiVisitadoEuleriano;
+    }
     public void resetVertice(){
         this.PE = 0;
         this.PS = 0;
         this.cor = 0;
         this.pai = null;
-        this.vizinhos = new ArrayList<>();
-        this.foiVisitado = false;
+        //this.vizinhos = new ArrayList<>();
+        //this.foiVisitado = false;
     }
 
     public int getBack() {

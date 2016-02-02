@@ -24,8 +24,9 @@ public class Grafo {
         geraVertices(numVertices);
         geraArestas();
     }
+
     public Grafo() {
-       
+
     }
 
     public void geraVertices(int numVertices) {
@@ -63,8 +64,8 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-        Vertice raiz = getRaiz();
-//        Vertice raiz = criaGrafoFixo();
+        //Vertice raiz = getRaiz();
+        Vertice raiz = criaGrafoFixo();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
     }
@@ -78,7 +79,7 @@ public class Grafo {
             if (w.getPE() == 0) {
                 w.setFoiVisitado(true);
                 w.setPai(v);
-                arestasArvore.add(new Aresta(v,w));
+                arestasArvore.add(new Aresta(v, w));
                 pilha.add(new Aresta(v, w)); // empilhar vw
                 circuitoEuleriano.add(new Aresta(v, w));
                 w.setCor(1 - v.getCor());
@@ -111,7 +112,7 @@ public class Grafo {
                     if (w.getCor() == v.getCor()) {
                         this.bipartido = false;
                     }
-                    
+
                 }
             }
         }
@@ -119,13 +120,23 @@ public class Grafo {
         v.setPS(t);
     }
 
+    public Boolean isGrauPar() {
+        for (Vertice vertice : vertices) {
+            if (vertice.getVizinhos().size() % 2 != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void imprimeGrafo() {
         for (Aresta aresta : arestas) {
             System.out.println(aresta.getVerticeA().getNumero() + "-" + aresta.getVerticeB().getNumero());
         }
     }
-    public void imprimeArvore(){
-        for (Aresta aresta: arestasArvore) {
+
+    public void imprimeArvore() {
+        for (Aresta aresta : arestasArvore) {
             System.out.println(aresta.getVerticeA().getNumero() + "->" + aresta.getVerticeB().getNumero());
         }
     }
@@ -137,9 +148,10 @@ public class Grafo {
     public void imprimePonte() {
         blocos.identificaPontes();
     }
-    public void imprimeArestaDeRetorno(){
+
+    public void imprimeArestaDeRetorno() {
         for (Aresta aresta : this.retornos) {
-            System.out.println(aresta.getVerticeA().getNumero()+ "->" + aresta.getVerticeB().getNumero());
+            System.out.println(aresta.getVerticeA().getNumero() + "->" + aresta.getVerticeB().getNumero());
         }
     }
 
@@ -148,19 +160,21 @@ public class Grafo {
             for (Aresta a2 : circuitoEuleriano) {
                 if (a1.comparaArestaSemOrdem(a2)) {
                     return false;
-                } 
+                }
             }
         }
         return true;
     }
-    public boolean isCircuitoEuleriano(){
-        return this.isEuleriano() && 
-      (circuitoEuleriano.get(circuitoEuleriano.size()-1).getVerticeB().getNumero()==
-                                circuitoEuleriano.get(0).getVerticeA().getNumero());
+
+    public boolean isCircuitoEuleriano() {
+        return this.isEuleriano()
+                && (circuitoEuleriano.get(circuitoEuleriano.size() - 1).getVerticeB().getNumero()
+                == circuitoEuleriano.get(0).getVerticeA().getNumero());
     }
-    public void imprimeCaminhoEuleriano(){
+
+    public void imprimeCaminhoEuleriano() {
         for (Aresta aresta : circuitoEuleriano) {
-            System.out.println(aresta.getVerticeA().getNumero()+" ->" + aresta.getVerticeB().getNumero());
+            System.out.println(aresta.getVerticeA().getNumero() + " ->" + aresta.getVerticeB().getNumero());
         }
     }
 
@@ -273,36 +287,109 @@ public class Grafo {
         Vertice c = new Vertice(3);
         Vertice d = new Vertice(4);
         Vertice e = new Vertice(5);
-        Vertice f = new Vertice(6);
-        Vertice g = new Vertice(7);
 
         a.addVizinho(b);
         a.addVizinho(c);
-        a.addVizinho(d);
 
         b.addVizinho(a);
-        b.addVizinho(d);
+        b.addVizinho(c);
 
         c.addVizinho(a);
+        c.addVizinho(b);
         c.addVizinho(d);
         c.addVizinho(e);
 
-        d.addVizinho(b);
         d.addVizinho(c);
-        d.addVizinho(a);
+        d.addVizinho(e);
 
         e.addVizinho(c);
-        e.addVizinho(f);
-        e.addVizinho(g);
+        e.addVizinho(d);
 
-        f.addVizinho(e);
-        f.addVizinho(g);
+        vertices = Arrays.asList(new Vertice[]{a, b, c, d, e});
 
-        g.addVizinho(e);
-        g.addVizinho(f);
-        vertices = Arrays.asList(new Vertice[]{a,b,c,d,e,f,g});
+        return a;
+
+    }
+
+    public boolean test() {
+        if (!(this.isConexo() && this.isGrauPar())) {
+            return false;
+        }
+
+        List<Aresta> arestas = getCircuitoEuleriano();
+        List<Aresta> caminho = new ArrayList<>();
+        Vertice v = arestas.get(0).getVerticeA();
+        for (Vertice w : v.getVizinhos()) {
+            Aresta a = new Aresta(v, w);
+            for (Aresta aresta : blocos.getPontes()) {
+                if (a.comparaArestaSemOrdem(aresta)&& v.getVizinhos().size()==1) {
+                    //olha outro vizinho
+                    // verifica se tem mais vizinhos
+                    v.getVizinhos().remove(w);
+                    w.getVizinhos().remove(v);
+                }
+            }
+                
+                    
+//                    v.getVizinhos().remove(w);
+//                    w.getVizinhos().remove(v);
+                    caminho.add(new Aresta(v,w));
+                    this.buscaEmProfundidade(w);
+                    //visita vw
+                    //remove vw
+                
+                        }
+            
+
         
-        return e;
+
+        return false;
+    }
+    public void buscaCircuitoEuleriano() {
+       Stack<Vertice> pilha = new Stack<>();
+       Vertice raiz = criaGrafoFixo();
+       raiz.setFoiVisitadoEuleriano(true);
+       pilha.add(raiz);
+       while(!pilha.isEmpty()){
+           Vertice topo = pilha.peek();
+           Vertice proximo = getDesmarcado(topo);
+           if(proximo != null){
+               proximo.setFoiVisitadoEuleriano(true);
+               pilha.add(proximo);
+               System.out.println(topo.getNumero()+"-->"+proximo.getNumero());
+                topo.getVizinhos().remove(proximo);
+                proximo.getVizinhos().remove(topo);
+                this.resetVerticesParaPontes();
+                this.resetVertices();
+                this.buscaEmProfundidade(pilha.peek());
+           }else{
+               pilha.pop();
+           }
+           
+       }
+    }
+    
+    private Vertice getDesmarcado(Vertice v){
+        for (Vertice vizinho : v.getVizinhos()) {
+            if(!vizinho.isFoiVisitadoEuleriano()&& !verificaPonte(v,vizinho)){
+                return vizinho;
+            }
+        }
+        return null;
+    }
+    
+    private boolean verificaPonte(Vertice v1, Vertice v2){
+        boolean ponte=false;
+        Aresta a = new Aresta(v1,v2);
+        for(Aresta aresta: blocos.getPontes()){
+          if(aresta.comparaArestaSemOrdem(a))
+              ponte =true;
+        }
+        return ponte;
+    }
+    private void resetVerticesParaPontes(){
+        this.blocos= new Blocos();
+        this.bloco=new Bloco();
         
     }
 
