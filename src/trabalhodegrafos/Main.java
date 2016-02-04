@@ -3,7 +3,7 @@ package trabalhodegrafos;
 public class Main {
     
     public static void main(String[] args) {
-          Grafo g = new Grafo(5);
+          Grafo g = new Grafo();
           
           System.out.println("Grafo");
           g.imprimeGrafo();
@@ -17,11 +17,11 @@ public class Main {
           
           g.getBlocos().imprimeBlocos();
           
-          System.out.println("É conexo? \n"+g.isConexo());
+          System.out.println("É conexo? \n"+g.isConexoParaLista());
           System.out.println("É Arvore?\n" + g.isArvore());
           System.out.println("É Bipartido?\n "+ g.isBipartido());
           System.out.println("Tem ciclo? \n"+ g.hasCiclo());
-         // System.out.println("É Circuito Euleriano?\n"+ g.isCircuitoEuleriano());
+          System.out.println("É Circuito Euleriano?\n"+ g.isCircuitoEuleriano());
           
           System.out.println("Articulação :");
           g.imprimeArticulacao();

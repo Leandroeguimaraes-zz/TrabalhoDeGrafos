@@ -121,8 +121,16 @@ public class Vertice {
         this.PS = 0;
         this.cor = 0;
         this.pai = null;
-        //this.vizinhos = new ArrayList<>();
-        //this.foiVisitado = false;
+        this.vizinhos = new ArrayList<>();
+        this.foiVisitado = false;
+    }
+    public void resetVerticeParaLista(){
+        this.PE = 0;
+        this.PS = 0;
+        this.cor = 0;
+        this.pai = null;
+        this.vizinhos = new ArrayList<>();
+        this.foiVisitado = false;
     }
 
     public int getBack() {

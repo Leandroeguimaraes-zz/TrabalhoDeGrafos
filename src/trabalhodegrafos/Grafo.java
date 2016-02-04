@@ -15,6 +15,7 @@ public class Grafo {
     private Stack<Aresta> pilha = new Stack<>();
     private List<Aresta> circuitoEuleriano = new ArrayList<>();
     private List<Aresta> arestasArvore = new ArrayList<>();
+    private List<Vertice> listaDeVerticesParaConexo = new ArrayList<>();
 
     private boolean bipartido = true;
 
@@ -32,6 +33,7 @@ public class Grafo {
     public void geraVertices(int numVertices) {
         for (int i = 1; i <= numVertices; i++) {
             this.vertices.add(new Vertice(i)); // valor que vai entrar no vertice
+            this.listaDeVerticesParaConexo.add(new Vertice(i));
         }
 
     }
@@ -46,11 +48,15 @@ public class Grafo {
                     // adicionando agora pelo numero e não o vertice em si
                     vertices.get(i).addVizinho(vertices.get(j));
                     vertices.get(j).addVizinho(vertices.get(i));
+                    listaDeVerticesParaConexo.get(i).addVizinho(listaDeVerticesParaConexo.get(j));
+                    listaDeVerticesParaConexo.get(j).addVizinho(listaDeVerticesParaConexo.get(i));
+                    
                 }
 
             }
 
         }
+        System.out.println(this.isConexoParaLista());
         addVerticeIsolado();
     }
 
@@ -64,7 +70,7 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-       // Vertice raiz = getRaiz();
+        //Vertice raiz = getRaiz();
         Vertice raiz = criaGrafoFixo();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
@@ -245,7 +251,7 @@ public class Grafo {
     }
 
     public boolean isCircuitoEuleriano() {
-        if(this.isConexo() && isGrauPar())
+        if(this.isConexoParaLista() && isGrauPar())
             return true;
         else return false;
     }
@@ -296,6 +302,28 @@ public class Grafo {
         }
         return c == vertices.size();
     }
+    public void resetVertices() {
+        for (Vertice v : vertices) {
+            v.resetVertice();
+        }
+    }
+    public boolean isConexoParaLista() {
+        resetVerticesParaLista();
+        int c = 0;
+        for (Vertice v : listaDeVerticesParaConexo) {
+            if (v.getPE() == 0) {
+                c++;
+                buscaEmProfundidade(v);
+            }
+        }
+        return c == listaDeVerticesParaConexo.size();
+    }
+    
+    public void resetVerticesParaLista() {
+        for (Vertice v : listaDeVerticesParaConexo) {
+            v.resetVerticeParaLista();
+        }
+    }
 
     public boolean isArvore() {
         return !hasArestaDeRetorno();
@@ -305,11 +333,8 @@ public class Grafo {
         return this.retornos.size() > 0;
     }
 
-    public void resetVertices() {
-        for (Vertice v : vertices) {
-            v.resetVertice();
-        }
-    }
+    
+    
 
     public Blocos getBlocos() {
         return blocos;
@@ -366,10 +391,10 @@ public class Grafo {
         Vertice d = new Vertice(4);
         Vertice e = new Vertice(5);
 
-        //a.addVizinho(b);
+        a.addVizinho(b);
         a.addVizinho(c);
 
-        //b.addVizinho(a);
+        b.addVizinho(a);
         b.addVizinho(c);
 
         c.addVizinho(a);
@@ -384,6 +409,7 @@ public class Grafo {
         e.addVizinho(d);
 
         vertices = Arrays.asList(new Vertice[]{a, b, c, d, e});
+        listaDeVerticesParaConexo = Arrays.asList(new Vertice[]{a, b, c, d, e});
 
         return a;
 
