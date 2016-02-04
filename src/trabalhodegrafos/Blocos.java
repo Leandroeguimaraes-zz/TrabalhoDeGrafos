@@ -123,6 +123,7 @@ public class Blocos {
     }
 
     public List<Aresta> getPontes() {
+        this.identificaPontesRemake();
         return pontes;
     }
 

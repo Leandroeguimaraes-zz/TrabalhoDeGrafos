@@ -21,7 +21,7 @@ public class Main {
           System.out.println("É Arvore?\n" + g.isArvore());
           System.out.println("É Bipartido?\n "+ g.isBipartido());
           System.out.println("Tem ciclo? \n"+ g.hasCiclo());
-          System.out.println("É Circuito Euleriano?\n"+ g.isCircuitoEuleriano());
+         // System.out.println("É Circuito Euleriano?\n"+ g.isCircuitoEuleriano());
           
           System.out.println("Articulação :");
           g.imprimeArticulacao();

@@ -64,8 +64,8 @@ public class Grafo {
     }
 
     public void buscaEmProfundidade() {
-        Vertice raiz = getRaiz();
-       // Vertice raiz = criaGrafoFixo();
+       // Vertice raiz = getRaiz();
+        Vertice raiz = criaGrafoFixo();
         raiz.setCor(0);
         buscaEmProfundidade(raiz);
     }
@@ -141,14 +141,13 @@ public class Grafo {
                 topo.getVizinhos().remove(proximo);
                 proximo.getVizinhos().remove(topo);
                 
-                this.resetVerticesParaPontes(pilha.peek());
+                this.resetVerticesParaPontes();
                 //this.resetVertices();
-                
                 this.buscaEmProfundidade(pilha.peek());
                 
                 System.out.println("Arvore novo grafo:\n\n");
                 
-//                this.imprimeCaminhoEuleriano();
+                this.imprimeCaminhoEuleriano();
                 
 //                System.out.println("numero de Pontes = "+ blocos.getPontes().size());
 //                System.out.println("retornos = "+ retornos.size()); 
@@ -192,17 +191,21 @@ public class Grafo {
         return ponte;
     }
 
-    private void resetVerticesParaPontes(Vertice v) {
+    private void resetVerticesParaPontes() {
         this.blocos = new Blocos();
         this.bloco = new Bloco();
-        v.setPE(0);
-        v.setPS(0);
-        v.setCor(0);
-        v.setPai(null);
         retornos= new ArrayList<>();
         circuitoEuleriano=new ArrayList<>();
         pilha=new Stack<>();
         arestasArvore=new ArrayList<>();
+        t= 0;
+        
+        for (Vertice v : vertices) {
+            v.setPE(0);
+            v.setPS(0);
+            v.setCor(0);
+            v.setPai(null);
+        }
 
     }
 
@@ -363,10 +366,10 @@ public class Grafo {
         Vertice d = new Vertice(4);
         Vertice e = new Vertice(5);
 
-        a.addVizinho(b);
+        //a.addVizinho(b);
         a.addVizinho(c);
 
-        b.addVizinho(a);
+        //b.addVizinho(a);
         b.addVizinho(c);
 
         c.addVizinho(a);
